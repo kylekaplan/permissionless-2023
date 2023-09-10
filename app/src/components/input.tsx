@@ -102,6 +102,9 @@ export default function MessageInput(props: MessageInputProps) {
         }).then(res => res.json());
         console.log('r:', r);
 
+        const transactionData = JSON.parse(r.data);
+        console.log('transactionData:', transactionData);
+
         // if (id) {
         //     if (!window.location.pathname.includes(id)) {
         //         navigate('/chat/' + id);

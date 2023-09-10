@@ -28,12 +28,13 @@ function transfer(to: string, amount: number) {
 
 app.post('/getTransaction', async (req: Request, res: Response) => {
   const { body } = req;
-  console.log('body:', body);
+  const { message } = body;
   try {
     const messages: any = [
       { role: "system", content: "You turn english language into blockchain transactions by calling functions. You have some contacts already, for example Bob has the wallet address of 0x000" },
-      {"role": "user", "content": "Can you send 10 DAI to Bob"}
+      // {"role": "user", "content": "Can you send 10 DAI to Bob"}
     ];
+    messages.push({ role: "user", content: message });
     const functions = [
       {
           "name": "transfer",
