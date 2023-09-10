@@ -105,3 +105,36 @@ export function CreateAccountModal(props: any) {
         </Container>
     </Modal>
 }
+
+export function CreateZkSyncWalletModal(props: any) {
+    const modal = useAppSelector(selectModal);
+    const dispatch = useAppDispatch();
+    const intl = useIntl();
+
+    const onClose = useCallback(() => dispatch(closeModals()), [dispatch]);
+
+    return <Modal opened={modal === 'signup'} onClose={onClose} withCloseButton={false}>
+        <Container>
+            <h2>
+                <FormattedMessage defaultMessage={"Create account"} />
+            </h2>
+            {/* <input type="hidden" name="redirect_url" value={window.location.href} />
+            <TextInput
+                label={intl.formatMessage({ defaultMessage: "Email address" })}
+                name="username"
+                placeholder={intl.formatMessage({ defaultMessage: "Enter your email address" })}
+                type="email"
+                required />
+            <PasswordInput
+                label={intl.formatMessage({ defaultMessage: "Password" })}
+                name="password"
+                placeholder={intl.formatMessage({ defaultMessage: "Enter your password" })}
+                minLength={6}
+                maxLength={500}
+                required /> */}
+            <Button fullWidth type="submit">
+                <FormattedMessage defaultMessage={"Create my wallet"} />
+            </Button>
+        </Container>
+    </Modal>
+}

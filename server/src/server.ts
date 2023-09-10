@@ -1,11 +1,17 @@
 import express, { Request, Response } from 'express';
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
+import cors from 'cors';
+
 
 dotenv.config();
 
 const app = express();
 const port = 3000;
+
+app.use(cors());
+app.use(express.json());
+
 
 const openai = new OpenAI({
   apiKey: process.env["OPENAI_API_KEY"], // defaults to process.env["OPENAI_API_KEY"]
@@ -20,7 +26,9 @@ function transfer(to: string, amount: number) {
   return JSON.stringify(transfer);
 }
 
-app.get('/getTransaction', async (req: Request, res: Response) => {
+app.post('/getTransaction', async (req: Request, res: Response) => {
+  const { body } = req;
+  console.log('body:', body);
   try {
     const messages: any = [
       { role: "system", content: "You turn english language into blockchain transactions by calling functions. You have some contacts already, for example Bob has the wallet address of 0x000" },

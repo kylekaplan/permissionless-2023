@@ -76,23 +76,23 @@ export function useCreateAppContext(): Context {
     }, [updateAuth]);
 
     const onNewMessage = useCallback(async (message?: string) => {
-        resetAudioContext();
+        // resetAudioContext();
         
-        if (isShare) {
-            return false;
-        }
+        // if (isShare) {
+        //     return false;
+        // }
 
         if (!message?.trim().length) {
             return false;
         }
 
         // const openaiApiKey = store.getState().apiKeys.openAIApiKey;
-        const openaiApiKey = chatManager.options.getOption<string>('openai', 'apiKey');
+        // const openaiApiKey = chatManager.options.getOption<string>('openai', 'apiKey');
 
-        if (!openaiApiKey && !isProxySupported()) {
-            dispatch(openOpenAIApiKeyPanel());
-            return false;
-        }
+        // if (!openaiApiKey && !isProxySupported()) {
+        //     dispatch(openOpenAIApiKeyPanel());
+        //     return false;
+        // }
 
         const parameters: Parameters = {
             model: chatManager.options.getOption<string>('parameters', 'model', id),
@@ -102,16 +102,16 @@ export function useCreateAppContext(): Context {
         if (id === nextID) {
             setNextID(uuidv4());
 
-            const autoPlay = chatManager.options.getOption<boolean>('tts', 'autoplay');
+            // const autoPlay = chatManager.options.getOption<boolean>('tts', 'autoplay');
 
-            if (autoPlay) {
-                const ttsService = chatManager.options.getOption<string>('tts', 'service');
-                if (ttsService === 'web-speech') {
-                    const utterance = new SpeechSynthesisUtterance('Generating');
-                    utterance.volume = 0;
-                    speechSynthesis.speak(utterance);
-                }
-            }
+            // if (autoPlay) {
+            //     const ttsService = chatManager.options.getOption<string>('tts', 'service');
+            //     if (ttsService === 'web-speech') {
+            //         const utterance = new SpeechSynthesisUtterance('Generating');
+            //         utterance.volume = 0;
+            //         speechSynthesis.speak(utterance);
+            //     }
+            // }
         }
 
         // if (chatManager.has(id)) {
@@ -132,7 +132,7 @@ export function useCreateAppContext(): Context {
                 content: message.trim(),
                 requestedParameters: {
                     ...parameters,
-                    apiKey: openaiApiKey,
+                    apiKey: 'openaiApiKey',
                 },
                 parentID: currentChat.leaf?.id,
             });

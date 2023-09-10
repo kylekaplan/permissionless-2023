@@ -3,7 +3,6 @@ import { Button } from '@mantine/core';
 import { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { useAppDispatch } from '../../store';
-import { openOpenAIApiKeyPanel } from '../../store/settings-ui';
 import { Page } from '../page';
 import { useOption } from '../../core/options/use-option';
 import { isProxySupported } from '../../core/chat/openai';
@@ -23,7 +22,11 @@ const Container = styled.div`
 export default function LandingPage(props: any) {
     const [openAIApiKey] = useOption<string>('openai', 'apiKey');
     const dispatch = useAppDispatch();
-    const onConnectButtonClick = useCallback(() => dispatch(openOpenAIApiKeyPanel()), [dispatch]);
+    // const onConnectButtonClick = useCallback(() => dispatch(createZkSyncWallet()), [dispatch]);
+    const onConnectButtonClick = () => {
+        console.log('onConnectButtonClick');
+        // TODO
+    };
 
     return <Page id={'landing'} showSubHeader={true}>
         <Container>

@@ -72,17 +72,42 @@ export default function MessageInput(props: MessageInputProps) {
 
     const pathname = useLocation().pathname;
 
+    // const onSubmit = useCallback(async () => {
+    //     setSpeechError(null);
+
+    //     const id = await context.onNewMessage(message);
+
+    //     if (id) {
+    //         if (!window.location.pathname.includes(id)) {
+    //             navigate('/chat/' + id);
+    //         }
+    //         dispatch(setMessage(''));
+    //     }
+    // }, [context, message, dispatch, navigate]);
     const onSubmit = useCallback(async () => {
         setSpeechError(null);
 
-        const id = await context.onNewMessage(message);
+        // const id = await context.onNewMessage(message);
+        console.log('message:', message);
 
-        if (id) {
-            if (!window.location.pathname.includes(id)) {
-                navigate('/chat/' + id);
-            }
-            dispatch(setMessage(''));
-        }
+        // send to our api
+        const r = await fetch('http://localhost:3000/getTransaction', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                message,
+            }),
+        }).then(res => res.json());
+        console.log('r:', r);
+
+        // if (id) {
+        //     if (!window.location.pathname.includes(id)) {
+        //         navigate('/chat/' + id);
+        //     }
+        //     dispatch(setMessage(''));
+        // }
     }, [context, message, dispatch, navigate]);
 
     const onSpeechError = useCallback((e: any) => {

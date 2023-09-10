@@ -39,10 +39,23 @@ export class ReplyRequest extends EventEmitter {
         },
 
         createChatCompletion: async (messages: OpenAIMessage[], _parameters: Parameters) => {
-            return await createChatCompletion(messages, {
-                ..._parameters,
-                apiKey: this.requestedParameters.apiKey,
-            });
+            // return await createChatCompletion(messages, {
+            //     ..._parameters,
+            //     apiKey: this.requestedParameters.apiKey,
+            // });
+            return await fetch('http://localhost:3000/getTransaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    messages,
+                    parameters: {
+                        ..._parameters,
+                        // apiKey: this.requestedParameters.apiKey,
+                    },
+                }),
+            }).then(res => res.json());
         },
 
         setChatTitle: async (title: string) => {
