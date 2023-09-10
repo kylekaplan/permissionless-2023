@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import dotenv from 'dotenv';
+import ethers from 'ethers';
 import { Button, ActionIcon, Textarea, Loader, Popover } from '@mantine/core';
 import { getHotkeyHandler, useHotkeys, useMediaQuery } from '@mantine/hooks';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -107,9 +109,8 @@ export default function MessageInput(props: MessageInputProps) {
         const transactionData = JSON.parse(r.data);
         console.log('transactionData:', transactionData);
         const parsedData = transactionData;
-
         const mainWallet = initWallet();
-        const bobsWallet = process.env.BOBS_ADDRESS?.toString();
+        const bobsWallet = '0xceb1F9EDf638D03Cbd44CD406cd43B889A939fE6'?.toString();
         // Create a variable to store the token amount in wei to transfer
         const amount = ethers.utils.parseUnits(`${parsedData.amount}`, 18);
         const transfer = await mainWallet.transfer({

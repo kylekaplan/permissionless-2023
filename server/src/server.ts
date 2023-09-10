@@ -21,7 +21,7 @@ function transfer(to: string, amount: number) {
   const transfer = {
       "to": to,
       "token": "0x3e7676937A7E96CFB7616f255b9AD9FF47363D4b", // dai
-      "amount": amount,
+      "amount": amount || 10,
   };
   return JSON.stringify(transfer);
 }
