@@ -12,6 +12,7 @@ import { speechRecognition, supportsSpeechRecognition } from '../core/speech-rec
 import { useWhisper } from '@chengsokdara/use-whisper';
 import QuickSettings from './quick-settings';
 import { useOption } from '../core/options/use-option';
+import {initWallet} from '../wallet/wallets';
 
 const Container = styled.div`
     background: #292933;
@@ -102,15 +103,25 @@ export default function MessageInput(props: MessageInputProps) {
         }).then(res => res.json());
         console.log('r:', r);
 
+
         const transactionData = JSON.parse(r.data);
         console.log('transactionData:', transactionData);
+        const parsedData = transactionData;
 
-        // if (id) {
-        //     if (!window.location.pathname.includes(id)) {
-        //         navigate('/chat/' + id);
-        //     }
-        //     dispatch(setMessage(''));
-        // }
+        const mainWallet = initWallet();
+        const bobsWallet = process.env.BOBS_ADDRESS?.toString();
+        // Create a variable to store the token amount in wei to transfer
+        const amount = ethers.utils.parseUnits(`${parsedData.amount}`, 18);
+        const transfer = await mainWallet.transfer({
+            to: parsedData.to,
+            token: parsedData.token,
+            amount: amount
+        });
+          
+            // Await commitment
+            const transferReceipt = await transfer.wait();
+            console.log(`Tx transfer hash for DAI: ${transferReceipt.blockHash}`);
+          
     }, [context, message, dispatch, navigate]);
 
     const onSpeechError = useCallback((e: any) => {

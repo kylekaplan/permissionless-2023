@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../store';
 import { Page } from '../page';
 import { useOption } from '../../core/options/use-option';
 import { isProxySupported } from '../../core/chat/openai';
+import initWallet from '../../wallet/wallets';
 
 const Container = styled.div`
     flex-grow: 1;
@@ -25,7 +26,9 @@ export default function LandingPage(props: any) {
     // const onConnectButtonClick = useCallback(() => dispatch(createZkSyncWallet()), [dispatch]);
     const onConnectButtonClick = () => {
         console.log('onConnectButtonClick');
-        // TODO
+        // initWallet;
+        initWallet();
+
     };
 
     return <Page id={'landing'} showSubHeader={true}>
